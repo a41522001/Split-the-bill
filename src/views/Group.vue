@@ -1,9 +1,9 @@
 <script setup>
     import { ref, computed } from "vue";
     import { useRouter } from "vue-router";
-    import { usesplitBillStore } from "../stores/splitBillStore";
+    import { useSplitBillStore } from "../stores/splitBillStore";
     import Result from "../components/Result.vue";
-    const splitBillStore = usesplitBillStore();
+    const splitBillStore = useSplitBillStore();
     const router = useRouter();
     const group = computed(() => splitBillStore.group);
     const groupName = computed(() => splitBillStore.groupName);
@@ -60,16 +60,18 @@
         </section>
         <button class="finish" @click="showModal = true">結束分帳</button>
     </div>
-    <div class="modal" v-show="showModal">
-        <div class="modal-content">
-            <p>確定結束分帳嗎</p>
-            <div class="modal-btn">
-                <button @click="finishSplitBill()">確定</button>
-                <button @click="showModal = false">取消</button>
+    
+        <div class="modal" v-if="showModal">
+            <div class="modal-content">
+                <h3>確定結束分帳嗎</h3>
+                <p>如果您還沒有完成分帳，結束分帳將會導致未分配的款項無法追溯，請確保所有款項都已經妥善分配後再結束分帳。</p>
+                <div class="modal-btn">
+                    <button @click="finishSplitBill()">確定</button>
+                    <button @click="showModal = false">取消</button>
+                </div>
+                <span @click="showModal = false">&times;</span>
             </div>
-            <span @click="showModal = false">&times;</span>
         </div>
-    </div>
 </template>
 
 <style scoped>
@@ -191,24 +193,33 @@
         z-index: 20;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
     }
     .modal-content{
-        width: 300px;
-        height: 200px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
+        margin-top: 3px;
+        width: 320px;
         background-color: #fff;
-        transform: translateY(-150px);
         border-radius: 15px;
         position: relative;
-        padding: 60px 0 10px 0;
+        padding: 30px 20px 10px 20px;
+        animation: slide .5s;
+    }
+    .modal-content h3{
+        position: relative;
+    }
+    .modal-content h3::after{
+        content: "";
+        width: 100%;
+        height: 1px;
+        background-color: #888;
+        position: absolute;
+        bottom: -5px;
+        left: 0;
     }
     .modal-content p{
-        color: #333;
-        font-size: 1.75rem;
+        color: #eb2e2e;
+        font-size: 1.05rem;
+        margin: 10px 0 15px;
     }
     .modal-content span{
         position: absolute;
@@ -217,9 +228,13 @@
         font-size: 1.25rem;
         cursor: pointer;
     }
+    .modal-btn{
+        display: flex;
+        justify-content: flex-end;
+        gap: 5px;
+    }
     .modal-btn button{
-        padding: 5px 30px;
-        margin: 0 5px;
+        padding: 2px 20px;
         border-radius: 8px;
         border: none;
         outline: none;
@@ -231,9 +246,16 @@
         opacity: .5;
     }
     .modal-btn button:first-child{
-        background-color: #524ff5;
+        background-color: rgb(81, 81, 248);
     }
     .modal-btn button:nth-child(2){
-        background-color: #f81f1f;
+        background-color: #f12f2f;
+    }
+    @keyframes slide{
+        0%{
+            transform: translateY(-102%);
+        }100%{
+            transform: translateY(0%);
+        }
     }
 </style>

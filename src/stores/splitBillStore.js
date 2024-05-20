@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref, onMounted } from "vue";
-export const usesplitBillStore = defineStore("splitBill", () => {
+export const useSplitBillStore = defineStore("splitBill", () => {
     const groupName = ref("");
     const group = ref([]);
     const payments = ref([]);
@@ -25,6 +25,7 @@ export const usesplitBillStore = defineStore("splitBill", () => {
     }
     function removePayment(index){
         payments.value.splice(index, 1);
+        //清空result 直接以現有款項開始計算分帳
         result.value.length = 0;
         payments.value.forEach(p => {
             computedPayment(p);

@@ -1,7 +1,7 @@
 <script setup>
     import { computed } from "vue";
-    import { usesplitBillStore } from "../stores/splitBillStore";
-    const splitBillStore = usesplitBillStore();
+    import { useSplitBillStore } from "../stores/splitBillStore";
+    const splitBillStore = useSplitBillStore();
     const list = computed(() => splitBillStore.list);
 </script>
 

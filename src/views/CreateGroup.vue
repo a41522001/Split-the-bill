@@ -1,9 +1,9 @@
 <script setup>
     import { ref, computed } from "vue";
     import { useRouter } from "vue-router";
-    import { usesplitBillStore } from "../stores/splitBillStore";
+    import { useSplitBillStore } from "../stores/splitBillStore";
     const router = useRouter();
-    const splitBillStore = usesplitBillStore();
+    const splitBillStore = useSplitBillStore();
     const group = computed(() => splitBillStore.group);
     const groupName = computed({
         get: () => splitBillStore.groupName,
@@ -145,7 +145,7 @@
     }
     .input-group button{
         width: 15%;
-        padding: 10px;
+        padding: 14px 10px 9px 10px;
         border: none;
         border-radius: 0 8px 8px 0;
         background-color: #5D7AA2;

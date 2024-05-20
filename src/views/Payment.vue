@@ -1,8 +1,8 @@
 <script setup>
     import { ref, computed } from "vue";
     import { useRouter } from "vue-router";
-    import { usesplitBillStore } from "../stores/splitBillStore";
-    const splitBillStore = usesplitBillStore();
+    import { useSplitBillStore } from "../stores/splitBillStore";
+    const splitBillStore = useSplitBillStore();
     const router = useRouter();
     const group = computed(() => splitBillStore.group);
     const payer = ref("");
@@ -171,7 +171,7 @@
     }
     .price span{
         border-width: 2px 0 2px 2px;
-        padding: 10px;
+        padding: 13px 10px;
         line-height: 1;
         background-color: #ccc;
         border-radius: 8px 0 0 8px;
