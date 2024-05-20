@@ -28,8 +28,11 @@
             paymentNameError.value = true;
             return;
         }
-        if(price.value == ""){
+        if(price.value === "" || price.value === 0){
             priceError.value = true;
+            return;
+        }
+        if(price.value < 1){
             return;
         }
         if(selectMember.value.length < 2){
@@ -91,7 +94,10 @@
                 <label for="price">金額
                     <span v-show="priceError">請填寫金額</span>
                 </label>
-                <p class="price"><span>NT$</span><input type="number" id="price" v-model="price"></p>  
+                <div class="price-input">
+                    <p>NT$</p>
+                    <input type="number" id="price" v-model="price">
+                </div>
             </div>
             <div class="input-group">
                 <p class="select-member">參與人
@@ -99,10 +105,10 @@
                 </p>
                 <ul>
                     <li v-for="member in group">
-                        <label>
-                            <input type="checkbox" :value="member" v-model="selectMember">
-                            {{ member }}
-                        </label>
+                        <div class="member-checkbox">
+                            <input type="checkbox" :id="member" :value="member" v-model="selectMember">
+                            <label :for="member">{{ member }}</label>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -159,19 +165,17 @@
         border: 2px #ccc solid;
         font-size: 1rem;
     }
-    .price{
+    .price-input{
         display: flex;
         align-items: center;
-        width: 100%;
     }
-    .price span,
     #price{
         border-color: #ccc;
         border-style: solid;
     }
-    .price span{
+    .price-input p{
         border-width: 2px 0 2px 2px;
-        padding: 13px 10px;
+        padding: 16px 10px;
         line-height: 1;
         background-color: #ccc;
         border-radius: 8px 0 0 8px;
@@ -180,8 +184,10 @@
         border-width: 2px 2px 2px 0;
         outline: none;
         flex-grow: 1;
-        padding: 9px;
+        flex-shrink: 1;
+        padding: 10px;
         border-radius: 0 8px 8px 0;
+        min-width: 0;
     }
     p.select-member{
         display: flex;
@@ -192,11 +198,16 @@
     }
     .input-group ul{
         display: flex;
-        gap: 8px;
+        gap: 10px;
         flex-wrap: wrap;
         padding: 5px 10px;
     }
-    .input-group ul li label{
+    .member-checkbox{
+        display: flex;
+        align-items: center;
+        gap: 3px;
+    }
+    .member-checkbox label{
         cursor: pointer;
     }
     button{

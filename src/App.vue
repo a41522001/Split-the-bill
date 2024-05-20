@@ -25,4 +25,12 @@
         -webkit-appearance: none;
         margin: 0;
     }
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-color: #fff;
+    }
 </style>

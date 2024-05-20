@@ -86,13 +86,15 @@
         </header>
         <div class="content">
             <div class="input-group">
-                <label for="group-name">分帳群組名</label><span v-show="groupError">請填寫群組名</span><br>
+                <label for="group-name">分帳群組名</label><span v-show="groupError">請填寫群組名</span>
                 <input type="text" id="group-name" v-model="groupName">
             </div>
             <div class="input-group">
-                <label for="member-name">成員名稱</label><span v-show="memberError">{{ memberErrorMessage }}</span><br>
-                <input class="member-input" type="text" id="member-name" v-model="memberName">
+                <label for="member-name">成員名稱</label><span v-show="memberError">{{ memberErrorMessage }}</span>
+                <div class="member-input">
+                    <input type="text" id="member-name" v-model="memberName">
                 <button @click="addMember()">新增</button>
+                </div>
             </div>
         </div>
         <ul>
@@ -133,9 +135,12 @@
         margin-bottom: 20px;
         flex-grow: 1;
         position: relative;
+        display: flex;
+        flex-direction: column;
     }
     .input-group label{
         font-size: 1.15rem;
+        margin-bottom: 5px;
     }
     .input-group span{
         color: #f00;
@@ -144,34 +149,41 @@
         right: 0;
     }
     .input-group button{
-        width: 15%;
-        padding: 14px 10px 9px 10px;
+        padding: 0 20px;
         border: none;
         border-radius: 0 8px 8px 0;
         background-color: #5D7AA2;
         color: #fff;
         cursor: pointer;
         font-weight: 600;
+        font-size: 1rem;
+        flex-basis: 80px;
+        flex-shrink: 0;
     }
     .input-group button:hover{
         background-color: rgba(0, 0, 0, .5);
     }
-    input{
-        margin-top: 5px;
-        padding: 8px 20px;
-        background-color: rgb(231, 231, 231);
-        width: 100%;
-        border: 2px rgb(243, 244, 246) solid;
-        font-size: 16px;
-        outline: none;
-        border-radius: 10px;
-    }
     .member-input{
-        width: 85%;
+        display: flex;
+        width: 100%;
+    }
+    #member-name{
         border-width: 2px 0 0 2px;
         border-color: rgb(243, 244, 246);
         border-style: solid;
         border-radius: 10px 0 0 10px;
+        flex-shrink: 1;
+        flex-grow: 1;
+        min-width: 0;
+    }
+    input{
+        flex-grow: 1;
+        padding: 8px 20px;
+        background-color: rgb(231, 231, 231);
+        border: 2px rgb(243, 244, 246) solid;
+        font-size: 16px;
+        outline: none;
+        border-radius: 10px;
     }
     ul{
         padding: 0 30px;
@@ -211,12 +223,6 @@
         transform: scale(1.05);
     }
     @media (max-width: 575px) {
-        .member-input{
-            width: 80%;
-        }
-        .input-group button{
-            width: 20%;
-        }
         .add-group-btn{
             padding: 15px 50px;
             font-size: 1rem;
